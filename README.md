@@ -73,3 +73,38 @@ Use the MongoDB driver and Kafka client libraries to perform the desired operati
 In your Blazor project, make HTTP requests to the REST API endpoints using the HttpClient class or a dedicated library like RestSharp.
 Update your Blazor components or pages to handle the responses and data received from the REST APIs.
 Use the returned data to populate UI elements, trigger actions, or update the application state.
+
+# Setup dependency injection and configure the services in the 'startup.cs' file on the REST API project.
+```
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // MongoDB configuration
+        var connectionString = "mongodb://localhost:27017";
+        var databaseName = "myDatabase";
+        services.AddSingleton(new MongoDbService(connectionString, databaseName));
+
+        // Kafka configuration
+        var bootstrapServers = "localhost:9092";
+        services.AddSingleton(new KafkaProducerService(bootstrapServers));
+
+        services.AddControllers();
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        // ...
+        app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
+    }
+}
+
+```
+
+With this setup when you send a POST request to '/api/persons' with a JSON payload, containing person data, it stores the person in MongoDB and sends a KAFKA message.
+
+Remember to install the required Nuget Packages: MongoDB.Driver, Confluent.Kafka and configure Kafka and MongoDB connections in Startup.cs file
