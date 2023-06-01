@@ -1,0 +1,19 @@
+using Confluent.Kafka;
+
+public class KafkaConsumerService
+{
+    private readonly ConsumerConfig _config;
+
+    public KafkaConsumerService()
+    {
+        _config = new ConsumerConfig
+        {
+            BootstrapServers = "localhost:9092",
+            GroupId = "myConsumerGroup",
+            AutoOffsetReset = AutoOffsetReset.Earliest
+        };
+    }
+
+    public void ConsumeMessages(string topic)
+    {
+       
