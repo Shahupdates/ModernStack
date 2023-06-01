@@ -2,12 +2,13 @@ using MongoDB.Driver;
 
 public class MongoDbService
 {
-    private readonly IMongoDatabase _database;
+    private readonly IMongoCollection<Person> _Collection;
 
-    public MongoDbService()
+    public MongoDbService(string connectionString, string databaseName)
     {
-        var client = new MongoClient("mongodb://localhost:27017");
-        _database = client.GetDatabase("myDatabase");
+        var client = new MongoClient(connectionString);
+        _database = client.GetDatabase(databaseName);
+        _collection = database.GetCollection<Person>("persons");
     }
     
     // metod() to perform crud operations to mongoDB collection: insert a document
@@ -16,4 +17,11 @@ public class MongoDbService
         var collection = _database.GetCollection<T>(collectionName);
         collection.InsertOne(document);
     }
+    
+    
+    public void InsertPerson(Person person)
+    {
+        _collection.InsertOne(person);
+    }
+    
 }
