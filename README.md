@@ -1,5 +1,7 @@
 # ModernStack
 This is my summer project I will be working on using C# Blazor, MongoDB, Kafka.
+- Were using Blazor components that interact with MongoDB and Kafka, 
+- Example: create blazor component with form to submit data to MongoDB and send Kafka message.
 
 Set up the development environment:
 
