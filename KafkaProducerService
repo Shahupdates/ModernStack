@@ -8,9 +8,7 @@ public class KafkaProducerService
     {
         _config = new ProducerConfig
         {
-            BootstrapServers = "localhost:9092",
-        };
-    }
+            BootstrapServers = new ProducerConfig { BootStrapServers = bootstrapServers );
 
     public void SendMessage(string topic, string message)
     {
